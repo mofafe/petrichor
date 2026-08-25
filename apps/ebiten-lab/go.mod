@@ -10,7 +10,7 @@ require (
 	github.com/pion/opus v0.1.1-0.20260824002546-25f7cc759a0a
 	github.com/pion/webrtc/v4 v4.1.2
 	github.com/solarlune/tetra3d v0.18.0
-	golang.org/x/image v0.43.0
+	golang.org/x/image v0.45.0
 )
 
 require (
@@ -40,7 +40,7 @@ require (
 	golang.org/x/crypto v0.33.0 // indirect
 	golang.org/x/net v0.35.0 // indirect
 	golang.org/x/sync v0.21.0 // indirect
-	golang.org/x/sys v0.44.0 // indirect
+	golang.org/x/sys v0.47.0 // indirect
 )
 
 replace github.com/mofafe/petrichor/apps/shared => ../shared
