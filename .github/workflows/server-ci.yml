@@ -1,0 +1,26 @@
+name: Server-CI
+
+on:
+  pull_request:
+    paths:
+      - "apps/server/**"
+      - "apps/shared/**"
+      - ".github/workflows/server-ci.yml"
+
+jobs:
+  go:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26.1"
+          cache: true
+
+      - name: Download deps
+        run: make go-download
+
+      - name: CI
+        run: make server-ci

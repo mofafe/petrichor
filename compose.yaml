@@ -1,0 +1,59 @@
+services:
+  coturn:
+    image: coturn/coturn
+    container_name: coturn
+    restart: unless-stopped
+    env_file:
+      - .env
+
+    ports:
+      - "3478:3478"
+      - "3478:3478/udp"
+      - "5349:5349"
+      - "5349:5349/udp"
+      - "49160-49200:49160-49200/udp"
+    volumes:
+      - ${TURN_CERT_DIR:-/etc/letsencrypt/live/turn.example.com}:/certs:ro
+      - ${TURN_CERT_ARCHIVE_DIR:-/etc/letsencrypt/archive/turn.example.com}:/archive:ro
+    command:
+      - -n
+      - --log-file=stdout
+      - --listening-port=3478
+      - --tls-listening-port=5349
+      - --realm=${TURN_REALM:-turn.example.com}
+      - --external-ip=${TURN_EXTERNAL_IP:?TURN_EXTERNAL_IP is required}
+      - --use-auth-secret
+      - --static-auth-secret=${TURN_SECRET}
+      - --min-port=49160
+      - --max-port=49200
+      - --fingerprint
+      - --stale-nonce
+      - --no-cli
+      - --no-multicast-peers
+      - --cert=/certs/fullchain.pem
+      - --pkey=/certs/privkey.pem
+  server:
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+    env_file:
+      - .env
+    environment:
+      ICE_ALLOWED_ORIGINS: ${ICE_ALLOWED_ORIGINS:-http://localhost:5173,http://127.0.0.1:5173}
+
+    ports:
+      - "8080:8080"
+
+  web:
+    build:
+      context: ./apps/web
+
+    environment:
+      WORLD_WS_ORIGIN: ${WORLD_WS_ORIGIN:-}
+      ICE_API_ORIGIN: ${ICE_API_ORIGIN:-}
+
+    ports:
+      - "5173:80"
+
+    depends_on:
+      - server

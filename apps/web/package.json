@@ -1,0 +1,29 @@
+{
+	"name": "petrichor-web",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"dev:lan": "vite --host",
+		"build": "tsgo --noEmit && vite build",
+		"typecheck": "tsgo --noEmit",
+		"typecheck:tsc": "tsc --noEmit",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"react": "^19.2.5",
+		"react-dom": "^19.2.5",
+		"three": "^0.164.1"
+	},
+	"devDependencies": {
+		"@types/node": "^25.6.0",
+		"@types/react": "^19.2.14",
+		"@types/react-dom": "^19.2.3",
+		"@types/three": "^0.164.0",
+		"@typescript/native-preview": "^7.0.0-dev.20260421.2",
+		"@vitejs/plugin-react": "^6.0.1",
+		"typescript": "^5.4.5",
+		"vite": "^8.0.10"
+	}
+}

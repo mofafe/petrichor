@@ -1,0 +1,25 @@
+# git
+.git
+.gitignore
+
+# env
+.env
+.env.*
+
+# go
+bin
+coverage.out
+
+# node
+node_modules
+dist
+
+# editor
+.vscode
+.idea
+
+# os
+.DS_Store
+
+# logs
+*.log

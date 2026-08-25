@@ -1,0 +1,9 @@
+services:
+  server:
+    environment:
+      ICE_ALLOWED_ORIGINS: ${STAGING_ORIGIN:?STAGING_ORIGIN is required}
+
+  web:
+    environment:
+      WORLD_WS_ORIGIN: ""
+      ICE_API_ORIGIN: ""
