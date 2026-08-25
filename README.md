@@ -8,7 +8,7 @@
 
 [![License](https://img.shields.io/github/license/mofafe/petrichor)](./LICENSE)
 [![Go Version](https://img.shields.io/github/go-mod/go-version/mofafe/petrichor?filename=apps%2Fserver%2Fgo.mod)](https://go.dev/)
-[![TypeScript Version](https://img.shields.io/github/package-json/dev-dependency-version/mofafe/petrichor/typescript?filename=apps%2Fweb%2Fpackage.json)](https://www.typescriptlang.org/)
+[![TypeScript Version](https://img.shields.io/github/package-json/dependency-version/mofafe/petrichor/dev/typescript?filename=apps%2Fweb%2Fpackage.json)](https://www.typescriptlang.org/)
 [![Self-hosted](https://img.shields.io/badge/Self--hosted-ready-C6FFCE)](./docs/self-hosting-guide.md)
 
 </div>
