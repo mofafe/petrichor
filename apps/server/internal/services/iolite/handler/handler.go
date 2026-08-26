@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/mofafe/petrichor/apps/server/internal/services/iolite/turn"
 	"github.com/mofafe/petrichor/apps/server/internal/services/iolite/ws"
 )
 
@@ -45,33 +44,7 @@ func IceAPI(c *gin.Context) {
 		return
 	}
 
-	turnUserID := strings.ReplaceAll(clientID, ":", "_")
-	if turnUserID == "" {
-		turnUserID = "anonymous"
-	}
-
-	username, credential := turn.GenerateTurnCredential(
-		turnUserID,
-		turnSecret,
-	)
-	turnRealm := currentTurnRealm()
-
-	c.JSON(200, gin.H{
-		"iceServers": []gin.H{
-			{
-				"urls": "stun:" + turnRealm + ":3478",
-			},
-			{
-				"urls": []string{
-					"turn:" + turnRealm + ":3478?transport=udp",
-					"turn:" + turnRealm + ":3478?transport=tcp",
-					"turns:" + turnRealm + ":5349?transport=tcp",
-				},
-				"username":   username,
-				"credential": credential,
-			},
-		},
-	})
+	c.JSON(200, buildICEResponse(clientID, turnSecret, currentTurnRealm()))
 }
 
 func currentTurnSecret() string {
