@@ -20,7 +20,7 @@ export async function loadIceServers(
 ): Promise<RTCIceServer[]> {
 	// WebRTC が NAT 越えをするための STUN/TURN 設定を server から取得する。
 	// マイクを有効化する直前に voice.ts から呼ばれる。
-	const response = await fetch(`${iceApiOrigin(location)}/api/ice`);
+	const response = await fetch(`${iceApiOrigin(location)}/api/iolite/ice`);
 	if (!response.ok) {
 		throw new Error(`Failed to load ICE servers: ${response.status}`);
 	}

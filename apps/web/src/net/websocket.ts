@@ -133,8 +133,8 @@ const LOCAL_WS_HOSTNAME = "localhost";
 const LOCAL_WS_PORT = "8080";
 const VITE_DEV_PORT_PREFIX = "517";
 const LOCAL_HOSTNAMES = new Set(["localhost", "127.0.0.1"]);
-const WORLD_WS_PATH = "/ws/rooms/world";
-const SIGNALING_WS_PATH = "/ws/rooms/signaling";
+const WORLD_WS_PATH = "/ws/iolite/world";
+const SIGNALING_WS_PATH = "/ws/iolite/signaling";
 const RUNTIME_CONFIG =
 	window.__PETRICHOR_CONFIG__ ?? window.__FLATTALKING_CONFIG__;
 const WORLD_WS_ORIGIN = RUNTIME_CONFIG?.worldWsOrigin?.trim();

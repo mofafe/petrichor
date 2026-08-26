@@ -40,9 +40,12 @@ services:
       - .env
     environment:
       ICE_ALLOWED_ORIGINS: ${ICE_ALLOWED_ORIGINS:-http://localhost:5173,http://127.0.0.1:5173}
+      PETRICHOR_DATABASE_PATH: ${PETRICHOR_DATABASE_PATH:-/app/data/petrichor.db}
 
     ports:
       - "8080:8080"
+    volumes:
+      - server-data:/app/data
 
   web:
     build:
@@ -57,3 +60,6 @@ services:
 
     depends_on:
       - server
+
+volumes:
+  server-data:

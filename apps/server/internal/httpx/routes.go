@@ -2,22 +2,32 @@ package httpx
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/mofafe/petrichor/apps/server/internal/services/iolite/handler"
-	"github.com/mofafe/petrichor/apps/server/internal/services/iolite/ws"
+
+	authhandler "github.com/mofafe/petrichor/apps/server/internal/auth/handler"
+	authmiddleware "github.com/mofafe/petrichor/apps/server/internal/auth/middleware"
+	authservice "github.com/mofafe/petrichor/apps/server/internal/auth/service"
+
+	iolitehandler "github.com/mofafe/petrichor/apps/server/internal/services/iolite/handler"
+	iolitews "github.com/mofafe/petrichor/apps/server/internal/services/iolite/ws"
 )
 
-func Routes(hub *ws.Hub) *gin.Engine {
+func Routes(hub *iolitews.Hub, authService *authservice.Service) *gin.Engine {
 	r := gin.Default()
 
-	iolite := r.Group("/")
+	authHandler := authhandler.New(authService)
+	auth := r.Group("/api/auth")
+	auth.POST("/register", authHandler.Register)
+	auth.POST("/login", authHandler.Login)
+	auth.GET("/me", authmiddleware.RequireAuth(authService), authHandler.Me)
 
-	iolite.GET("/ws/rooms/signaling/:roomID", handler.WebSocket(hub, ws.ChannelSignaling))
-	iolite.GET("/ws/rooms/world/:roomID", handler.WebSocket(hub, ws.ChannelWorld))
-	iolite.GET("/ws/rooms/chat/:roomID", handler.WebSocket(hub, ws.ChannelChat))
+	ioliteWS := r.Group("/ws/iolite")
+	ioliteWS.GET("/signaling/:roomID", iolitehandler.WebSocket(hub, iolitews.ChannelSignaling))
+	ioliteWS.GET("/world/:roomID", iolitehandler.WebSocket(hub, iolitews.ChannelWorld))
+	ioliteWS.GET("/chat/:roomID", iolitehandler.WebSocket(hub, iolitews.ChannelChat))
 
-	iolite.OPTIONS("/api/ice", handler.IceOption)
-
-	iolite.GET("/api/ice", handler.IceAPI)
+	ioliteHandler := r.Group("/api/iolite")
+	ioliteHandler.OPTIONS("/ice", iolitehandler.IceOption)
+	ioliteHandler.GET("/ice", iolitehandler.IceAPI)
 
 	return r
 }
