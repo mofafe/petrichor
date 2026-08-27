@@ -12,7 +12,6 @@ import (
 	"github.com/google/uuid"
 	"github.com/mofafe/petrichor/apps/server/internal/auth/model"
 	"github.com/mofafe/petrichor/apps/server/internal/auth/repository"
-	"golang.org/x/crypto/bcrypt"
 )
 
 const tokenTTL = 24 * time.Hour
@@ -69,7 +68,7 @@ func (s *Service) Register(ctx context.Context, username string, password string
 		return model.User{}, ErrUsernameTaken
 	}
 
-	passwordHash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	passwordHash, err := hashPassword(password)
 	if err != nil {
 		return model.User{}, fmt.Errorf("hash password: %w", err)
 	}
@@ -99,7 +98,8 @@ func (s *Service) Login(ctx context.Context, username string, password string) (
 		return "", model.User{}, err
 	}
 
-	if err := bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(password)); err != nil {
+	ok, err := verifyPassword(password, user.PasswordHash)
+	if err != nil || !ok {
 		return "", model.User{}, ErrInvalidCredentials
 	}
 
@@ -164,7 +164,7 @@ func validatePassword(password string) error {
 	if len(password) < 8 {
 		return ErrInvalidPassword
 	}
-	if len(password) > 72 {
+	if len(password) > 128 {
 		return ErrInvalidPassword
 	}
 
