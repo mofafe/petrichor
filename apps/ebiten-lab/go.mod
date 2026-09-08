@@ -5,7 +5,7 @@ go 1.26.1
 require (
 	github.com/gen2brain/malgo v0.11.26
 	github.com/gorilla/websocket v1.5.3
-	github.com/hajimehoshi/ebiten/v2 v2.9.10
+	github.com/hajimehoshi/ebiten/v2 v2.9.11
 	github.com/mofafe/petrichor/apps/shared v0.0.0
 	github.com/pion/opus v0.1.1-0.20260824002546-25f7cc759a0a
 	github.com/pion/webrtc/v4 v4.2.18
