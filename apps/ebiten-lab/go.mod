@@ -5,7 +5,7 @@ go 1.26.1
 require (
 	github.com/gen2brain/malgo v0.11.26
 	github.com/gorilla/websocket v1.5.3
-	github.com/hajimehoshi/ebiten/v2 v2.9.10
+	github.com/hajimehoshi/ebiten/v2 v2.10.2
 	github.com/mofafe/petrichor/apps/shared v0.0.0
 	github.com/pion/opus v0.1.1-0.20260824002546-25f7cc759a0a
 	github.com/pion/webrtc/v4 v4.2.18
@@ -14,11 +14,10 @@ require (
 )
 
 require (
-	github.com/ebitengine/gomobile v0.0.0-20250923094054-ea854a63cce1 // indirect
+	github.com/ebitengine/gomobile v0.0.0-20260820040257-d11f821a26a6 // indirect
 	github.com/ebitengine/hideconsole v1.0.0 // indirect
-	github.com/ebitengine/purego v0.9.1 // indirect
+	github.com/ebitengine/purego v0.11.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
-	github.com/jezek/xgb v1.2.0 // indirect
 	github.com/pion/datachannel v1.6.2 // indirect
 	github.com/pion/dtls/v3 v3.1.5 // indirect
 	github.com/pion/ice/v4 v4.4.0 // indirect
@@ -39,7 +38,7 @@ require (
 	github.com/wlynxg/anet v0.0.5 // indirect
 	golang.org/x/crypto v0.48.0 // indirect
 	golang.org/x/net v0.50.0 // indirect
-	golang.org/x/sync v0.21.0 // indirect
+	golang.org/x/sync v0.22.0 // indirect
 	golang.org/x/sys v0.47.0 // indirect
 	golang.org/x/time v0.14.0 // indirect
 )
